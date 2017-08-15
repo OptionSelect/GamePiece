@@ -11,24 +11,33 @@ namespace GamePiece
             public bool Frozen { get; set; }
             public string Name { get; set; }
             public string Color { get; set; }
+            public int MinX { get; set; }
+            public int MaxX { get; set; }
+            public int MinY { get; set; }
+            public int MaxY { get; set; }
+            Random random = new Random();
 
             public GamePiece(string name, string color)
             {
                 PositionX = 0;
                 PositionY = 0;
+                MinX = 0;
+                MaxX = 100;
+                MinY = 0;
+                MaxY = 500;
                 Frozen = false;
                 Name = name;
                 Color = color;
             }
 
-            public void Move(int posX, int posY)
+            public void Move()
             {
                 if (Frozen == true)
                 {
                     Console.WriteLine($"{Color} {Name} is frozen and cannot move.");
                 } else {
-                    PositionX = posX;
-                    PositionY = posY;
+                    PositionX = random.Next(0,100);
+                    PositionY = random.Next(0,500);
                 }
             }
 
@@ -54,18 +63,17 @@ namespace GamePiece
         {
             var Piece = new GamePiece("Rook", "Black");
             
-            Piece.Move(12,12);
+            Console.WriteLine(Piece);
+
+            Piece.Move();
             Console.WriteLine(Piece);
 
             Piece.Freeze();
+            Piece.Move();
+            Console.WriteLine(Piece);
 
-            Console.WriteLine(Piece);
-            
-            Piece.Move(13,13);
-            Console.WriteLine(Piece);
-            
             Piece.Unfreeze();
-            Piece.Move(14,14);
+            Piece.Move();
             Console.WriteLine(Piece);
         }
     }
